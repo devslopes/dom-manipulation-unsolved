@@ -38,3 +38,40 @@
  */
 
 // Your code goes here...
+
+function updateSelectedItems() {
+  const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+
+  const card = document.querySelectorAll('.card');
+  card.forEach(elm => {
+    const itemId = elm.id;
+    if (storedItems.includes(itemId)) {
+      elm.style.backgroundColor = 'red';
+    } else {
+      elm.style.backgroundColor = 'transparent';
+    }
+  });
+}
+
+const card = document.querySelectorAll('.card');
+card.forEach(elm => {
+  elm.addEventListener('click', function(e) {
+    const item = e.target;
+    const itemId = item.id;
+    const storedItems = JSON.parse(localStorage.getItem('selectedItems')) || [];
+
+    const itemIndex = storedItems.indexOf(itemId);
+
+    if (itemIndex === -1) {
+      storedItems.push(itemId);
+    } else {
+      storedItems.splice(itemIndex, 1);
+    }
+
+    localStorage.setItem('selectedItems', JSON.stringify(storedItems));
+
+    updateSelectedItems();
+  });
+});
+
+updateSelectedItems();

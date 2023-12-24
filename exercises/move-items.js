@@ -13,7 +13,7 @@
 
 // Your code goes here...
 
-
+const allItems = document.querySelectorAll('.item');
 
 /**
  * @task
@@ -24,7 +24,7 @@
 
 // Your code goes here
 
-
+const main = document.getElementById('main');
 
 /**
  * @task
@@ -35,7 +35,7 @@
 
 // Your code goes here
 
-
+const favs = document.getElementById('favs');
 
 /**
  * @task
@@ -46,9 +46,28 @@
  * Changes the icon of the element: fa-heart-circle-plus for main, fa-heart-crack for favs items.
  */
 
-// Your code goes here
+// Your code goes here]
 
+const heartPlus = 'fa-heart-circle-plus';
+const heartCrack = 'fa-heart-crack';
 
+function updateCollections(id, direction) {
+  const childElement = document.getElementById(id);
+  const newParentElement = document.getElementById(direction);
+
+  const heart = childElement.children[0];
+  console.log();
+
+  if (heart.classList[1] === heartPlus) {
+    heart.classList.remove(heartPlus);
+    heart.classList.add(heartCrack);
+  } else {
+    heart.classList.remove(heartCrack);
+    heart.classList.add(heartPlus);
+  }
+
+  newParentElement.appendChild(childElement);
+}
 
 /**
  * @task
@@ -66,4 +85,19 @@
 
 // Your code goes here...
 
+const toMain = main.id;
+const toFavs = favs.id;
 
+allItems.forEach((item) => {
+  item.addEventListener('click', function() {
+    const itemId = item.id;
+    const parentId = item.parentElement.id;
+
+    if (parentId === toMain) {
+
+      updateCollections(itemId, toFavs);
+    } else {
+      updateCollections(itemId, toMain);
+    }
+  });
+});
